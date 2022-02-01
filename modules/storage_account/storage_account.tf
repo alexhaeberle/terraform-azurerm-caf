@@ -244,11 +244,3 @@ module "management_policy" {
   storage_account_id = azurerm_storage_account.stg.id
   settings           = try(var.storage_account.management_policies, {})
 }
-
-module "object_replication" {
-  source                          = "./object_replication"
-  for_each                        = try(var.object_replication, {})
-  source_storage_account_id       = each.source_storage_account_id
-  destination_storage_account_id  = each.destination_storage_account_id
-  settings                        = try(var.object_replication, {})
-}
