@@ -13,8 +13,8 @@ resource "azurerm_storage_object_replication" "obj_repl" {
     }
   }
 
-  dynamic "timeouts" {
-    for_each = try(var.settings.timeouts, null)
+  /* dynamic "timeouts" {
+    for_each = var.settings.timeouts
 
     content {
       create = try(timeouts.value.create, null)
@@ -22,5 +22,5 @@ resource "azurerm_storage_object_replication" "obj_repl" {
       update = try(timeouts.value.update, null)
       delete = try(timeouts.value.delete, null)
     }
-  }
+  } */
 }
