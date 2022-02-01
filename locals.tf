@@ -303,6 +303,10 @@ locals {
     storage_containers     = try(var.storage.storage_containers, {})
   }
 
+  object_replication = {
+    object_replication = try(var.object_replication, {})
+  }
+
   webapp = {
     app_service_environments     = try(var.webapp.app_service_environments, {})
     app_service_plans            = try(var.webapp.app_service_plans, {})

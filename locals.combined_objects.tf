@@ -93,6 +93,7 @@ locals {
   combined_objects_servicebus_queues                              = merge(tomap({ (local.client_config.landingzone_key) = module.servicebus_queues }), try(var.remote_objects.servicebus_queues, {}))
   combined_objects_signalr_services                               = merge(tomap({ (local.client_config.landingzone_key) = module.signalr_services }), try(var.remote_objects.signalr_services, {}))
   combined_objects_storage_accounts                               = merge(tomap({ (local.client_config.landingzone_key) = module.storage_accounts }), try(var.remote_objects.storage_accounts, {}))
+  combined_objects_object_replication                             = merge(tomap({ (local.client_config.landingzone_key) = module.object_replication }), try(var.remote_objects.object_replication, {}))
   combined_objects_storage_containers                             = merge(tomap({ (local.client_config.landingzone_key) = module.storage_containers }), try(var.remote_objects.storage_containers, {}))
   combined_objects_synapse_workspaces                             = merge(tomap({ (local.client_config.landingzone_key) = module.synapse_workspaces }), try(var.remote_objects.synapse_workspaces, {}))
   combined_objects_virtual_hub_connections                        = merge(tomap({ (local.client_config.landingzone_key) = azurerm_virtual_hub_connection.vhub_connection }), try(var.remote_objects.vhub_peerings, {}), try(var.remote_objects.virtual_hub_connections, {}))
