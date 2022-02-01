@@ -14,7 +14,7 @@ resource "azurerm_storage_object_replication" "obj_repl" {
   }
 
   dynamic "timeouts" {
-    for_each = var.settings.timeouts
+    for_each = try(var.settings.timeouts, null)
 
     content {
       create = try(timeouts.value.create, null)
