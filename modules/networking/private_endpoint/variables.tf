@@ -22,7 +22,7 @@ variable "location" {
 }
 
 variable "subnet_id" {}
-variable "vnet" {}
+/* variable "vnet" {} */
 variable "settings" {}
 variable "global_settings" {
   description = "Global settings object (see module README.md)"
