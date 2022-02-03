@@ -44,6 +44,6 @@ module "private_links" {
 
 }
 
-output "private_endpoints" {
+output "private_links" {
   value = module.private_links
 }
