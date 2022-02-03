@@ -247,8 +247,8 @@ module "management_policy" {
 
 module "object_replication" {
   source                          = "./object_replication"
-  for_each                        = try(var.object_replication, {})
-  source_storage_account_id       = each.source_storage_account_id
-  destination_storage_account_id  = each.destination_storage_account_id
-  settings                        = try(var.object_replication, {})
+  for_each                        = try(var.object_replication, null)
+  source_storage_account_id       = try(each.source_storage_account_id, null)
+  destination_storage_account_id  = try(each.destination_storage_account_id, null)
+  settings                        = try(var.object_replication, null)
 }
