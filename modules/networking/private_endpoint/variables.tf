@@ -22,7 +22,7 @@ variable "location" {
 }
 
 variable "subnet_id" {}
-variable "app_services" {}
+variable "remote_objects" {}
 /* variable "vnet" {} */
 variable "settings" {}
 variable "global_settings" {
