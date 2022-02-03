@@ -1,6 +1,6 @@
 
 resource "azurecaf_name" "pep" {
-  name          = var.name
+  name          = var.settings.name
   resource_type = "azurerm_private_endpoint"
   prefixes      = var.global_settings.prefixes
   random_length = var.global_settings.random_length
