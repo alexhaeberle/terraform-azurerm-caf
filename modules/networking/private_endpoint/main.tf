@@ -22,6 +22,8 @@ locals {
     null
   )
   subnet = try(
-    var.vnet[var.settings.subnet_key]
+    var.vnet[var.client_config.landingzone_key][var.settings.vnet_key][var.settings.subnet_key],
+    var.vnet[var.settings.lz_key][var.settings.vnet_key][var.settings.subnet_key],
+    null
   )
 }
