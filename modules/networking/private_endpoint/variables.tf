@@ -1,4 +1,6 @@
-variable "resource_id" {}
+variable "resource_id" {
+  default     = null
+}
 
 variable "name" {
   type        = string
@@ -19,7 +21,8 @@ variable "location" {
   default     = null
 }
 
-variable "subnet_id" {}
+/* variable "subnet_id" {} */
+variable "vnet" {}
 variable "settings" {}
 variable "global_settings" {
   description = "Global settings object (see module README.md)"
