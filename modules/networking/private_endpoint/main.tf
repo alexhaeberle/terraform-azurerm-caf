@@ -21,4 +21,7 @@ locals {
     var.resource_groups[var.settings.resource_group.lz_key][var.settings.resource_group.key],
     null
   )
+  resource_id = try(
+    var.apps[var.settings.private_service_connection.lz_key][var.settings.private_service_connection.resource_key].id
+  )
 }
