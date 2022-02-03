@@ -31,14 +31,9 @@ module "private_endpoints" {
     data_factory               = local.combined_objects_data_factory
     event_hub_namespaces       = local.combined_objects_event_hub_namespaces
     keyvaults                  = local.combined_objects_keyvaults
-    mssql_servers              = local.combined_objects_mssql_servers
-    mysql_servers              = local.combined_objects_mysql_servers
     networking                 = local.combined_objects_networking
-    postgresql_servers         = local.combined_objects_postgresql_servers
     recovery_vaults            = local.combined_objects_recovery_vaults
     redis_caches               = local.combined_objects_redis_caches
     storage_accounts           = local.combined_objects_storage_accounts
-    synapse_workspaces         = local.combined_objects_synapse_workspaces
-    signalr_services           = local.combined_objects_signalr_services
   }
 }
