@@ -1,5 +1,5 @@
 module "private_endpoints" {
-  source   = "./modules/networking/private_links/endpoints/private_endpoint"
+  source   = "./modules/networking/private_endpoint"
   for_each = try(var.networking.private_endpoints, {})
 
   global_settings   = local.global_settings
