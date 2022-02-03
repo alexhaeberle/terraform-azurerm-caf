@@ -5,6 +5,7 @@ module "private_endpoints" {
   global_settings   = local.global_settings
   client_config     = local.client_config
   settings          = each.value
+  name              = each.value.name
   resource_groups   = local.combined_objects_resource_groups
   private_dns       = local.combined_objects_private_dns
   subnet_id         = try(module.networking[each.value.vnet_key].subnets[each.value.subnet_key].id, null)
