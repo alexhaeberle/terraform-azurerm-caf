@@ -245,10 +245,4 @@ module "management_policy" {
   settings           = try(var.storage_account.management_policies, {})
 }
 
-module "object_replication" {
-  source                          = "./object_replication"
-  for_each                        = try(var.object_replication, null)
-  source_storage_account_id       = try(each.source_storage_account_id, null)
-  destination_storage_account_id  = try(each.destination_storage_account_id, null)
-  settings                        = try(var.object_replication, null)
-}
+
