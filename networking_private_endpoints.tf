@@ -8,7 +8,7 @@ module "private_endpoints" {
   name              = each.value.name
   resource_groups   = local.combined_objects_resource_groups
   private_dns       = local.combined_objects_private_dns
-  subnet_id         = try(module.networking[each.value.vnet_key].subnets[each.value.subnet_key].id, null)
+  subnet_id         = try(local.combined_objects_networking[each.value.vnet_key].subnets[each.value.subnet_key].id, null)
 
   base_tags = try(local.global_settings.inherit_tags, false) ? coalesce(
     try(local.resource_groups[each.value.resource_group_key].tags, null),
