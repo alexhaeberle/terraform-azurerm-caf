@@ -13,14 +13,14 @@ resource "azurerm_private_endpoint" "pep" {
   name                = azurecaf_name.pep.result
   location            = try(local.location, var.location)
   resource_group_name = try(local.resource_group.name, var.resource_group_name)
-  subnet_id           = var.subnet_id
+  subnet_id           = local.subnet.id
   tags                = local.tags
 
   private_service_connection {
     name                           = var.settings.private_service_connection.name
-    private_connection_resource_id = var.resource_id
+    private_connection_resource_id = try(var.settings.private_service_connection.resource_id, null)
     is_manual_connection           = try(var.settings.private_service_connection.is_manual_connection, false)
-    subresource_names              = var.settings.private_service_connection.subresource_names
+    subresource_names              = try(var.settings.private_service_connection.subresource_names, null)
     request_message                = try(var.settings.private_service_connection.request_message, null)
   }
 

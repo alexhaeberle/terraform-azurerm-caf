@@ -21,4 +21,7 @@ locals {
     var.resource_groups[var.settings.resource_group.lz_key][var.settings.resource_group.key],
     null
   )
+  subnet = try(
+    var.vnet[var.settings.subnet_key]
+  )
 }
