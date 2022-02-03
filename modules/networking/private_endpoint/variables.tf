@@ -21,7 +21,7 @@ variable "location" {
   default     = null
 }
 
-/* variable "subnet_id" {} */
+variable "subnet_id" {}
 variable "vnet" {}
 variable "settings" {}
 variable "global_settings" {
