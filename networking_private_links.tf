@@ -1,6 +1,6 @@
-module "private_endpoints" {
-  source   = "./modules/networking/private_endpoint"
-  for_each = try(var.networking.private_endpoints, {})
+module "private_links" {
+  source   = "./modules/networking/private_links/endpoints/private_endpoint"
+  for_each = try(var.networking.private_links, {})
 
   global_settings   = local.global_settings
   client_config     = local.client_config
@@ -45,5 +45,5 @@ module "private_endpoints" {
 }
 
 output "private_endpoints" {
-  value = module.private_endpoints
+  value = module.private_links
 }
