@@ -22,5 +22,5 @@ module "private_endpoints" {
 }
 
 output "private_endpoints" {
-  value = module.private_links
+  value = module.private_endpoints
 }
