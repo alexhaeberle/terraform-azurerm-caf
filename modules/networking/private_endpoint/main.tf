@@ -23,7 +23,7 @@ locals {
   )
   resource_id = try(
     var.remote_objects.app_services[var.settings.private_service_connection.lz_key][var.settings.private_service_connection.resource_key].id,
-    var.remote_objects.cosmos_db[var.settings.private_service_connection.lz_key][var.settings.private_service_connection.resource_key].id,
+    var.remote_objects.cosmos_db[var.settings.private_service_connection.lz_key][var.settings.private_service_connection.account_key].sql_databases[var.settings.private_service_connection.resource_key].id,
     var.remote_objects.storage_accounts[var.settings.private_service_connection.lz_key][var.settings.private_service_connection.resource_key].id,
   )
 }
