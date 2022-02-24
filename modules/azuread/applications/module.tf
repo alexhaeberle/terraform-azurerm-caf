@@ -52,14 +52,6 @@ resource "azuread_service_principal_password" "pwd" {
   }
 }
 
-resource "azuread_application_password" "app_pwd" {
-  application_id = azuread_application.app.application_id
-  display_name = try(var.settings.application_name, null)
-  rotate_when_changed = {
-    rotation = time_rotating.pwd.id
-  }
-}
-
 locals {
   password_policy = try(var.settings.password_policy, var.password_policy)
 }
