@@ -59,6 +59,7 @@ resource "azurerm_app_service" "app_service" {
       use_32_bit_worker_process = lookup(var.settings.site_config, "use_32_bit_worker_process", false)
       websockets_enabled        = lookup(var.settings.site_config, "websockets_enabled", false)
       scm_type                  = lookup(var.settings.site_config, "scm_type", null)
+      vnet_route_all_enabled    = lookup(var.settings.site_config, "vnet_route_all_enabled", null)
 
       dynamic "cors" {
         for_each = lookup(var.settings.site_config, "cors", {}) != {} ? [1] : []
@@ -250,7 +251,8 @@ resource "azurerm_app_service" "app_service" {
   lifecycle {
     ignore_changes = [
       app_settings["WEBSITE_RUN_FROM_PACKAGE"],
-      site_config[0].scm_type
+      site_config[0].scm_type,
+      site_config[0].app_command_line
     ]
   }
 }
