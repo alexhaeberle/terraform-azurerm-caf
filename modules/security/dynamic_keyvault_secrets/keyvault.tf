@@ -5,8 +5,8 @@ module "secret" {
     if try(value.value, null) == null
   }
 
-  name  = each.value.secret_name
-  value = can(each.value.output_key) && (can(each.value.resource_key) || can(each.value.attribute_key)) ? lookup(lookup(var.objects[each.value.output_key], try(each.value.resource_key, ""), var.objects[each.value.output_key]), each.value.attribute_key, null) : each.value.value
+  name  = each.key.secret_name
+  value = can(each.key.output_key) && (can(each.key.resource_key) || can(each.key.attribute_key)) ? lookup(lookup(var.objects[each.key.output_key], try(each.key.resource_key, ""), var.objects[each.key.output_key]), each.key.attribute_key, null) : each.key.value
   # for future generations: double lookup because each.value.resource_key is optional
   keyvault_id = var.keyvault.id
 }
@@ -18,8 +18,8 @@ module "secret_value" {
     if try(value.value, null) != null && try(value.value, null) != ""
   }
 
-  name        = each.value.secret_name
-  value       = each.value.value
+  name        = each.key.secret_name
+  value       = each.key.value
   keyvault_id = var.keyvault.id
 }
 
@@ -30,8 +30,8 @@ module "secret_immutable" {
     if try(value.value, null) == ""
   }
 
-  name  = each.value.secret_name
-  value = can(each.value.output_key) && (can(each.value.resource_key) || can(each.value.attribute_key)) ? lookup(lookup(var.objects[each.value.output_key], try(each.value.resource_key, ""), var.objects[each.value.output_key]), each.value.attribute_key, null) : each.value.value
+  name  = each.key.secret_name
+  value = can(each.key.output_key) && (can(each.key.resource_key) || can(each.key.attribute_key)) ? lookup(lookup(var.objects[each.key.output_key], try(each.key.resource_key, ""), var.objects[each.key.output_key]), each.key.attribute_key, null) : each.key.value
   # for future generations: double lookup because each.value.resource_key is optional
   keyvault_id = var.keyvault.id
 }
