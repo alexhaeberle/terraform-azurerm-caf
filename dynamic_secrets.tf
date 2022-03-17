@@ -15,7 +15,7 @@ module "dynamic_keyvault_secrets" {
 
   settings = each.value
   /* keyvault = local.combined_objects_keyvaults[try(each.value.lz_key, local.client_config.landingzone_key)][each.key] */
-  keyvault = local.combined_objects_keyvaults[try(settings.lz_key)][each.key]
+  keyvault = local.combined_objects_keyvaults[try(module.settings.lz_key)][each.key]
 }
 
 output "dynamic_keyvault_secrets" {
