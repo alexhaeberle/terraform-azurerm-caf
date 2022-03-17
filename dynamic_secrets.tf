@@ -8,14 +8,15 @@ module "dynamic_keyvault_secrets" {
   depends_on = [module.keyvaults]
   for_each = {
     for keyvault_key, secrets in try(var.security.dynamic_keyvault_secrets, {}) : keyvault_key => {
-      for key, value in secrets : key => value
+      for key, value in secrets : key => { 
+        lz_key = value.lz_key
+      }
       if try(value.value, null) != null
     }
   }
 
   settings = each.value
-  /* keyvault = local.combined_objects_keyvaults[try(each.value.lz_key, local.client_config.landingzone_key)][each.key] */
-  keyvault = local.combined_objects_keyvaults[try(each.value.value.lz_key)][each.key]
+  keyvault = local.combined_objects_keyvaults[try(keyvault_key.lz_key, local.client_config.landingzone_key)][each.key]
 }
 
 output "dynamic_keyvault_secrets" {
