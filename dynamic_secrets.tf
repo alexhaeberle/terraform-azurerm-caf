@@ -17,7 +17,7 @@ module "dynamic_keyvault_secrets" {
     for key, value in try(var.security.dynamic_keyvault_secrets, {}) : key => value
   }
 
-  settings = each.value
+  settings = each.key
   keyvault = local.combined_objects_keyvaults[try(each.value.lz_key, local.client_config.landingzone_key)][each.value.kv_key]
 }
 
