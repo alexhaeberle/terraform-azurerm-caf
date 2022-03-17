@@ -8,7 +8,8 @@ module "secret" {
   name  = each.value.secret_name
   value = can(each.value.output_key) && (can(each.value.resource_key) || can(each.value.attribute_key)) ? lookup(lookup(var.objects[each.value.output_key], try(each.value.resource_key, ""), var.objects[each.value.output_key]), each.value.attribute_key, null) : each.value.value
   # for future generations: double lookup because each.value.resource_key is optional
-  keyvault_id = var.keyvault.id
+  /* keyvault_id = var.keyvault.id */
+  keyvault_id = local.combined_objects_keyvaults[try(each.value.lz_key, local.client_config.landingzone_key)][each.value.kv_key]
 }
 
 module "secret_value" {
