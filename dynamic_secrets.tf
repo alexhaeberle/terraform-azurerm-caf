@@ -8,7 +8,7 @@ module "dynamic_keyvault_secrets" {
   depends_on = [module.keyvaults]
   for_each = {
     for keyvault_key, secrets in try(var.security.dynamic_keyvault_secrets, {}) : keyvault_key => {
-      for key, value in secrets : key => value #if try(value.value, null) != null
+      for key, value in secrets : key => value if try(value.value, null) != null
     }
   }
 
