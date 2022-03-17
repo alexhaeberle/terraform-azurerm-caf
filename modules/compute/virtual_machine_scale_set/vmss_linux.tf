@@ -75,10 +75,12 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   disable_password_authentication = try(each.value.disable_password_authentication, true)
   eviction_policy                 = try(each.value.eviction_policy, null)
   max_bid_price                   = try(each.value.max_bid_price, null)
+  overprovision                   = try(each.value.overprovision, null)
   priority                        = try(each.value.priority, null)
   provision_vm_agent              = try(each.value.provision_vm_agent, true)
   proximity_placement_group_id    = try(var.proximity_placement_groups[var.client_config.landingzone_key][each.value.proximity_placement_group_key].id, var.proximity_placement_groups[each.value.proximity_placement_groups].id, null)
   scale_in_policy                 = try(each.value.scale_in_policy, null)
+  single_placement_group          = try(each.value.single_placement_group, null)
   upgrade_mode                    = try(each.value.upgrade_mode, null)
   zone_balance                    = try(each.value.zone_balance, null)
   zones                           = try(each.value.zones, null)
@@ -153,7 +155,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
     }
   }
 
-  source_image_id = try(each.value.custom_image_id, var.custom_image_ids[each.value.lz_key][each.value.custom_image_key].id, null)
+  source_image_id = try(each.value.source_image_reference, null) == null ? format("%s%s",
+    try(each.value.custom_image_id, var.image_definitions[var.client_config.landingzone_key][each.value.custom_image_key].id,
+    var.image_definitions[each.value.custom_image_lz_key][each.value.custom_image_key].id),
+  try("/versions/${each.value.custom_image_version}", "")) : null
 
   dynamic "plan" {
     for_each = try(each.value.plan, null) != null ? [1] : []
@@ -237,11 +242,11 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
 
   health_probe_id = try(var.load_balancers[try(each.value.lz_key, var.client_config.landingzone_key)][each.value.health_probe.loadbalancer_key].probes[each.value.health_probe.probe_key].id, null)
 
-  lifecycle {
-    ignore_changes = [
-      resource_group_name, location
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     resource_group_name, location
+  #   ]
+  # }
 
 }
 

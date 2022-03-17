@@ -23,3 +23,25 @@ output "log_analytics" {
   value = module.log_analytics
 }
 
+module "log_analytics_storage_insights" {
+  source   = "./modules/monitoring/log_analytics_storage_insights"
+  for_each = local.shared_services.log_analytics_storage_insights
+
+  global_settings = local.global_settings
+  client_config   = local.client_config
+  settings        = each.value
+
+  resource_group_name = can(each.value.resource_group.name) || can(each.value.resource_group_name) ? try(each.value.resource_group.name, each.value.resource_group_name) : local.combined_objects_resource_groups[try(each.value.resource_group.lz_key, local.client_config.landingzone_key)][try(each.value.resource_group_key, each.value.resource_group.key)].name
+  workspace_id        = can(each.value.log_analytics.workspace_id) ? each.value.log_analytics.workspace_id : local.combined_objects_log_analytics[try(each.value.log_analytics.lz_key, local.client_config.landingzone_key)][each.value.log_analytics.key].id
+  storage_account_id  = can(each.value.storage_account.id) ? each.value.storage_account.id : local.combined_objects_storage_accounts[try(each.value.storage_account.lz_key, local.client_config.landingzone_key)][each.value.storage_account.key].id
+  primary_access_key  = can(each.value.storage_account.primary_access_key) ? each.value.storage_account.primary_access_key : local.combined_objects_storage_accounts[try(each.value.storage_account.lz_key, local.client_config.landingzone_key)][each.value.storage_account.key].primary_access_key
+
+  remote_objects = {
+    resource_group  = local.combined_objects_resource_groups
+    storage_account = local.combined_objects_storage_accounts
+    log_analytics   = local.combined_objects_log_analytics
+  }
+}
+output "log_analytics_storage_insights" {
+  value = module.log_analytics_storage_insights
+}

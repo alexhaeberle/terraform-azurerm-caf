@@ -1,7 +1,7 @@
 global_settings = {
   default_region = "region1"
   regions = {
-    region1 = "southeastasia"
+    region1 = "eastus2"
   }
 }
 
@@ -43,8 +43,6 @@ keyvaults = {
     name               = "certs"
     resource_group_key = "rg1"
     sku_name           = "standard"
-
-    enabled_for_deployment = true
 
     creation_policies = {
       logged_in_user = {
