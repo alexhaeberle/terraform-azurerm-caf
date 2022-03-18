@@ -13,8 +13,8 @@ module "dynamic_keyvault_secrets" {
   }
 
   settings = each.value
-  /* keyvault = try(local.combined_objects_keyvaults[each.value.lz_key], local.combined_objects_keyvaults[local.client_config.landingzone_key])[each.key] */
-  keyvault = local.combined_objects_keyvaults[module.dynamic_keyvault_secrets.settings.lz_key][each.key]
+  keyvault = try(local.combined_objects_keyvaults[each.secrets.lz_key], local.combined_objects_keyvaults[local.client_config.landingzone_key])[each.key]
+  /* keyvault = local.combined_objects_keyvaults[module.dynamic_keyvault_secrets.settings.lz_key][each.key] */
 }
 
 output "dynamic_keyvault_secrets" {
